@@ -1,0 +1,33 @@
+---
+title: "Report Caller"
+output:
+---
+
+
+```{r create_community_list_variable}
+CommunityData <- read.csv(file <- "EastPeoria_PositResults_20240515.csv")
+# Communities <- unique(CommunityData$StudyCity)
+Communities <- c("East Peoria")
+
+# Testing variables
+# Communities <- c("Bureau")
+# communityname <- Communities
+# loss_data <- CommunityData
+# community_losses <- loss_data
+```
+
+```{r, include=FALSE}
+options(tinytex.verbose = TRUE)
+```
+
+```{r Call_Report_in_Loop}
+for(Community in Communities) {
+  output_file <- paste0("ILR_SFRA_Report_", Community)
+  rmarkdown::render(input = "Community_Loss_Report.Rmd", 
+                    output_file = output_file,
+                    params = list(communityname = Community,
+                                  loss_data = CommunityData)
+         )
+}
+```
+
